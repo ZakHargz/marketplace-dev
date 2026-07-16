@@ -6,15 +6,12 @@
   },
   "plugins": [
     {
-      "name": "onboard-to-olympus",
-      "description": "Internal APEX team agent and skill for Olympus onboarding",
-      "version": "^1.0.0",
-      "source": "./packages/teams/apex/onboard-to-olympus"
-    },
-    {
       "name": "confluence",
       "description": "APEX-approved generic Confluence integration",
       "version": "^1.0.0",
+      "tags": [
+        "generic"
+      ],
       "source": "./packages/generic/confluence"
     }
   ]

@@ -28,13 +28,6 @@ marketplace:
   #   apm pack --marketplace=claude,codex --json | jq -r '.marketplace.outputs[].path'
 
   packages:
-    - name: onboard-to-olympus
-      description: Internal APEX team agent and skill for Olympus onboarding
-      source: ./packages/teams/apex/onboard-to-olympus
-      version: "^1.0.0"
-      tags:
-        - apex
-
     - name: confluence
       description: APEX-approved generic Confluence integration
       source: ./packages/generic/confluence
