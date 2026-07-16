@@ -2,9 +2,7 @@
 """Generate the embedded catalog used by the Flutter-Global Pages UI."""
 
 import json
-import os
 import re
-from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,10 +62,8 @@ def package_item(entry: dict) -> dict:
 def main() -> None:
     marketplace = json.loads(MARKETPLACE.read_text(encoding="utf-8"))
     items = sorted((package_item(entry) for entry in marketplace.get("plugins", [])), key=lambda item: (item["category"], item["name"]))
-    epoch = os.environ.get("SOURCE_DATE_EPOCH")
-    updated = datetime.fromtimestamp(int(epoch), timezone.utc).isoformat() if epoch and epoch.isdigit() else None
     catalog = {
-        "version": "1.0.0", "lastUpdated": updated, "repository": REPOSITORY,
+        "version": "1.0.0", "lastUpdated": None, "repository": REPOSITORY,
         "itemCount": len(items), "teams": sorted({item["team"] for item in items if item["team"]}),
         "categories": {category: sum(item["category"] == category for item in items) for category in ("agents", "skills", "instructions", "prompts")},
         "items": items,
