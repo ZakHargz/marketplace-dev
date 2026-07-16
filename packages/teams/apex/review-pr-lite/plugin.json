@@ -1,0 +1,9 @@
+{
+  "name": "review-pr-lite",
+  "version": "0.1.0",
+  "description": "APM project for review-pr-lite",
+  "author": {
+    "name": "Zak Hargreaves"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,17 @@
+name: review-pr-lite
+version: 0.1.0
+description: Use when the user wants to apply GitHub PR review comments from Copilot — implements valid recommendations and replies to every comment.
+author: Zak Hargreaves
+# Which agent platforms to deploy to (uncomment to pin):
+targets:
+  - copilot
+  - claude
+  - opencode
+
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+devDependencies:
+  apm: []
+scripts: {}
