@@ -36,7 +36,10 @@ jobs:
       - name: Validate and build marketplace
         run: |
           apm marketplace check
-          apm pack --check-versions --check-clean
+          # Regenerate first so removed packages disappear from both the
+          # marketplace artifact and the Pages catalogue.
+          apm pack
+          apm pack --check-versions --check-clean --dry-run
           export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct -- .claude-plugin/marketplace.json)"
           python scripts/generate-catalog.py
 
