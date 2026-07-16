@@ -71,3 +71,16 @@ grid.addEventListener("click", (event) => {
     setTimeout(() => button.classList.remove("copied"), 1200);
   });
 });
+
+const guide = document.querySelector("#install-guide");
+document.querySelector("#open-guide").addEventListener("click", () => guide.showModal());
+document.querySelector("#close-guide").addEventListener("click", () => guide.close());
+guide.addEventListener("click", (event) => {
+  if (event.target === guide) guide.close();
+  const button = event.target.closest(".copy-command");
+  if (!button || !navigator.clipboard) return;
+  navigator.clipboard.writeText(button.dataset.copy).then(() => {
+    button.textContent = "Copied";
+    setTimeout(() => { button.textContent = "Copy"; }, 1200);
+  });
+});

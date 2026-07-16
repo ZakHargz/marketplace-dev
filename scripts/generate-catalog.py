@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 OUTPUT = ROOT / "site" / "catalog.json"
 REPOSITORY = "https://github.com/Flutter-Global/apex-marketplace"
+MARKETPLACE_NAME = "apex"
 
 
 def yaml_value(path: Path, key: str, default: str = "") -> str:
@@ -50,7 +51,7 @@ def package_item(entry: dict) -> dict:
     author = yaml_value(manifest, "author", "Flutter-Global")
     license_name = yaml_value(manifest, "license", "MIT")
     description = entry.get("description", yaml_value(manifest, "description"))
-    install = f"apm install {REPOSITORY}/packages/{'/'.join(parts[2:])}"
+    install = f"apm install {entry['name']}@{MARKETPLACE_NAME}"
     return {
         "id": entry["name"], "name": entry["name"], "type": package_type,
         "category": category, "version": version, "description": description,

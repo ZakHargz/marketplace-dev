@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-07-16T19:10:51+00:00",
+  "repository": "https://github.com/Flutter-Global/apex-marketplace",
+  "itemCount": 2,
+  "teams": [
+    "apex"
+  ],
+  "categories": {
+    "agents": 0,
+    "skills": 2,
+    "instructions": 0,
+    "prompts": 0
+  },
+  "items": [
+    {
+      "id": "confluence",
+      "name": "confluence",
+      "type": "skill",
+      "category": "skills",
+      "version": "0.1.0",
+      "description": "APEX-approved generic Confluence integration",
+      "extendedDescription": "Use confluence-cli to read, search, create, update, move, delete, and convert Confluence pages and attachments from the terminal.",
+      "author": "Zak Hargreaves",
+      "license": "MIT",
+      "homepage": null,
+      "repository": "https://github.com/Flutter-Global/apex-marketplace",
+      "installCommand": "apm install confluence@apex",
+      "team": null
+    },
+    {
+      "id": "review-pr-lite",
+      "name": "review-pr-lite",
+      "type": "skill",
+      "category": "skills",
+      "version": "0.1.0",
+      "description": "Use when the user wants to apply GitHub PR review comments from Copilot \u2014 implements valid recommendations and replies to every comment.",
+      "extendedDescription": "Use when the user wants to apply GitHub PR review comments from Copilot \u2014 implements valid recommendations and replies to every comment.",
+      "author": "Zak Hargreaves",
+      "license": "MIT",
+      "homepage": null,
+      "repository": "https://github.com/Flutter-Global/apex-marketplace",
+      "installCommand": "apm install review-pr-lite@apex",
+      "team": "apex"
+    }
+  ]
+}
