@@ -1,0 +1,9 @@
+{
+  "name": "gpd-release-readiness-godmode",
+  "version": "0.1.0",
+  "description": "APM project for gpd-release-readiness-godmode",
+  "author": {
+    "name": "Zak Hargreaves"
+  },
+  "license": "MIT"
+}

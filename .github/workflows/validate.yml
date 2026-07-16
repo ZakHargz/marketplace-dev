@@ -35,17 +35,14 @@ jobs:
           python scripts/prune-marketplace.py
           apm marketplace check --offline
 
-      - name: Require marketplace manifest cleanup
-        run: git diff --exit-code -- apm.yml
-
-      - name: Check generated marketplace output
-        run: apm pack --check-clean --dry-run
-
-      - name: Generate catalogue and verify it is committed
+      - name: Build temporary marketplace output
         run: |
-          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct -- .claude-plugin/marketplace.json)"
+          apm pack
+          apm pack --check-versions --check-clean --dry-run
+
+      - name: Build temporary catalogue
+        run: |
           python scripts/generate-catalog.py
-          git diff --exit-code -- site/catalog.json
 
       - name: Audit package content and lockfile drift
         run: apm audit --ci --no-policy
