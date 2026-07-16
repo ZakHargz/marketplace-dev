@@ -1,0 +1,13 @@
+name: pr-validation-test
+version: 0.1.0
+description: Test skill used to verify marketplace pull request validation.
+author: APEX
+license: MIT
+targets:
+  - copilot
+  - claude
+  - opencode
+includes: auto
+dependencies:
+  apm: []
+  mcp: []

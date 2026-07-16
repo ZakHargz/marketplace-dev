@@ -28,6 +28,13 @@ marketplace:
   #   apm pack --marketplace=claude,codex --json | jq -r '.marketplace.outputs[].path'
 
   packages:
+    - name: pr-validation-test
+      description: Test skill used to verify marketplace pull request validation.
+      source: ./packages/teams/apex/pr-validation-test
+      version: "^0.1.0"
+      tags:
+        - apex
+
     - name: review-pr-lite
       description: Use when the user wants to apply GitHub PR review comments from Copilot — implements valid recommendations and replies to every comment.
       source: ./packages/teams/apex/review-pr-lite

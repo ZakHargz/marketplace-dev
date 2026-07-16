@@ -29,6 +29,7 @@ jobs:
 
       - name: Validate package and marketplace manifests
         run: |
+          python scripts/sync-marketplace.py
           python scripts/prune-marketplace.py
           apm marketplace check --offline
 
