@@ -6,6 +6,15 @@
   },
   "plugins": [
     {
+      "name": "pr-validation-test",
+      "description": "Test skill used to verify marketplace pull request validation.",
+      "version": "^0.1.0",
+      "tags": [
+        "apex"
+      ],
+      "source": "./packages/teams/apex/pr-validation-test"
+    },
+    {
       "name": "review-pr-lite",
       "description": "Use when the user wants to apply GitHub PR review comments from Copilot — implements valid recommendations and replies to every comment.",
       "version": "^0.1.0",

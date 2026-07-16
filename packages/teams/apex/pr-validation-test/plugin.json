@@ -1,0 +1,9 @@
+{
+  "name": "pr-validation-test",
+  "version": "0.1.0",
+  "description": "Test skill used to verify marketplace pull request validation.",
+  "author": {
+    "name": "APEX"
+  },
+  "license": "MIT"
+}

@@ -52,7 +52,7 @@ fetch("catalog.json", { cache: "no-cache" })
     setStat("#stat-instructions", catalog.categories?.instructions ?? 0);
     setStat("#stat-teams", catalog.teams?.length ?? 0);
     teamFilter.insertAdjacentHTML("beforeend", (catalog.teams || []).map((team) => `<option value="${escapeHtml(team)}">${escapeHtml(team)}</option>`).join(""));
-    document.querySelector("#last-updated").textContent = catalog.lastUpdated || "latest";
+    document.querySelector("#last-updated").textContent = catalog.lastUpdated || "latest release";
     grid.innerHTML = items.map(renderCard).join("");
     applyFilters();
   })

@@ -1,14 +1,14 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-07-16T19:28:09+00:00",
+  "lastUpdated": null,
   "repository": "https://github.com/Flutter-Global/apex-marketplace",
-  "itemCount": 2,
+  "itemCount": 3,
   "teams": [
     "apex"
   ],
   "categories": {
     "agents": 0,
-    "skills": 2,
+    "skills": 3,
     "instructions": 0,
     "prompts": 0
   },
@@ -27,6 +27,21 @@
       "repository": "https://github.com/Flutter-Global/apex-marketplace",
       "installCommand": "apm install confluence@apex",
       "team": null
+    },
+    {
+      "id": "pr-validation-test",
+      "name": "pr-validation-test",
+      "type": "skill",
+      "category": "skills",
+      "version": "0.1.0",
+      "description": "Test skill used to verify marketplace pull request validation.",
+      "extendedDescription": "Test skill used to verify marketplace pull request validation.",
+      "author": "APEX",
+      "license": "MIT",
+      "homepage": null,
+      "repository": "https://github.com/Flutter-Global/apex-marketplace",
+      "installCommand": "apm install pr-validation-test@apex",
+      "team": "apex"
     },
     {
       "id": "review-pr-lite",

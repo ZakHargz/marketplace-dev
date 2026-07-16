@@ -2,6 +2,7 @@ name: Validate Marketplace
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - "apm.yml"
       - "packages/**"
@@ -9,6 +10,7 @@ on:
       - "site/**"
       - ".claude-plugin/marketplace.json"
       - ".github/workflows/**"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,6 +31,7 @@ jobs:
 
       - name: Validate package and marketplace manifests
         run: |
+          python scripts/sync-marketplace.py
           python scripts/prune-marketplace.py
           apm marketplace check --offline
 
