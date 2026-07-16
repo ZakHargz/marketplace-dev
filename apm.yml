@@ -1,6 +1,8 @@
-name: marketplace-dev
+name: apex-agent-marketplace
 version: 0.1.0
-description: A short description of what this repo offers
+description: APEX-approved and team-owned agent packages
+author: APEX
+repository: https://github.com/Flutter-Global/marketplace-dev
 license: MIT
 marketplace:
   owner:
@@ -26,14 +28,15 @@ marketplace:
   #   apm pack --marketplace=claude,codex --json | jq -r '.marketplace.outputs[].path'
 
   packages:
-    - name: onboard-to-olympus 
-      description: Agent + Skill to onboard-to-olympus
+    - name: onboard-to-olympus
+      description: Internal APEX team agent and skill for Olympus onboarding
       source: ./packages/teams/apex/onboard-to-olympus
       version: "^1.0.0"
       tags:
         - apex
-    - name: confluence 
-      description: Interact with confluence
+
+    - name: confluence
+      description: APEX-approved generic Confluence integration
       source: ./packages/generic/confluence
       version: "^1.0.0"
       tags:

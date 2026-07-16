@@ -1,0 +1,43 @@
+name: Validate Marketplace
+
+on:
+  pull_request:
+    paths:
+      - "apm.yml"
+      - "packages/**"
+      - "scripts/**"
+      - "site/**"
+      - ".claude-plugin/marketplace.json"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install APM
+        run: python -m pip install apm-cli
+
+      - name: Validate package and marketplace manifests
+        run: apm marketplace check --offline
+
+      - name: Check generated marketplace output
+        run: apm pack --check-clean --dry-run
+
+      - name: Generate catalogue and verify it is committed
+        run: |
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct -- .claude-plugin/marketplace.json)"
+          python scripts/generate-catalog.py
+          git diff --exit-code -- site/catalog.json
+
+      - name: Audit package content and lockfile drift
+        run: apm audit --ci --no-policy

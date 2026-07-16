@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "marketplace": "apex-agent-marketplace",
+  "generatedAt": "2026-07-16T16:51:03+00:00",
+  "owners": [
+    "apex",
+    "generic"
+  ],
+  "packages": [
+    {
+      "name": "onboard-to-olympus",
+      "displayName": "Onboard To Olympus",
+      "description": "Internal APEX team agent and skill for Olympus onboarding",
+      "version": "^1.0.0",
+      "owner": "apex",
+      "classification": "internal",
+      "install": "apm install onboard-to-olympus@marketplace-dev",
+      "source": "./packages/teams/apex/onboard-to-olympus",
+      "skills": [
+        "onboard-to-olympus"
+      ],
+      "agents": [
+        "onboard-to-olympus"
+      ],
+      "packageVersion": "0.1.0"
+    },
+    {
+      "name": "confluence",
+      "displayName": "Confluence",
+      "description": "APEX-approved generic Confluence integration",
+      "version": "^1.0.0",
+      "owner": "generic",
+      "classification": "approved",
+      "install": "apm install confluence@marketplace-dev",
+      "source": "./packages/generic/confluence",
+      "skills": [
+        "confluence"
+      ],
+      "agents": [],
+      "packageVersion": "0.1.0"
+    }
+  ]
+}

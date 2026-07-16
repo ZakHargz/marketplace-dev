@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="APEX agent and skill marketplace">
+  <title>APEX Agent Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="shell masthead">
+    <div>
+      <p class="eyebrow">APEX / AGENT CATALOGUE</p>
+      <h1>Useful context,<br><em>ready to install.</em></h1>
+      <p class="lede">A curated collection of APEX-approved packages and team-owned tools for the agents we use every day.</p>
+    </div>
+    <div class="status-card"><span class="status-dot"></span><span id="updated">Loading catalogue...</span></div>
+  </header>
+
+  <main class="shell">
+    <section class="controls" aria-label="Catalogue filters">
+      <label>Browse by team<select id="owner-filter"></select></label>
+      <label class="search-label">Search packages<input id="search" type="search" placeholder="Try confluence or olympus" autocomplete="off"></label>
+    </section>
+    <section class="catalogue-heading"><div><p class="eyebrow">PACKAGE INDEX</p><h2 id="result-heading">Generic packages</h2></div><span id="result-count" class="count"></span></section>
+    <section id="packages" class="package-grid" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>No packages match those filters.</p>
+  </main>
+
+  <footer class="shell footer"><span>APEX Agent Marketplace</span><span>Install with APM. Governed by your team.</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Marketplace identity, package catalogue, and generated outputs are protected.
+* @Zakhargz
+
+/apm.yml @Zakhargz
+/.claude-plugin/ @Zakhargz
+/.github/ @Zakhargz
+/site/ @Zakhargz
+/scripts/ @Zakhargz
+
+# Package content remains owned by the contributing team, while catalogue
+# membership and publication remain subject to the platform owner above.
+/packages/teams/apex/ @Zakhargz
+/packages/teams/ @Zakhargz
+/packages/generic/ @Zakhargz
