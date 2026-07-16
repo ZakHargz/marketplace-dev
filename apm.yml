@@ -30,6 +30,14 @@ marketplace:
       description: Agent + Skill to onboard-to-olympus
       source: ./packages/teams/apex/onboard-to-olympus
       version: "^1.0.0"
+      tags:
+        - apex
+    - name: confluence 
+      description: Interact with confluence
+      source: ./packages/generic/confluence
+      version: "^1.0.0"
+      tags:
+        - generic
       # Required when outputs includes codex:
       # category: Productivity
       # Optional overrides:

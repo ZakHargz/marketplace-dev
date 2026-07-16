@@ -9,7 +9,19 @@
       "name": "onboard-to-olympus",
       "description": "Agent + Skill to onboard-to-olympus",
       "version": "^1.0.0",
+      "tags": [
+        "apex"
+      ],
       "source": "./packages/teams/apex/onboard-to-olympus"
+    },
+    {
+      "name": "confluence",
+      "description": "Interact with confluence",
+      "version": "^1.0.0",
+      "tags": [
+        "generic"
+      ],
+      "source": "./packages/generic/confluence"
     }
   ]
 }

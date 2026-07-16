@@ -1,0 +1,9 @@
+{
+  "name": "confluence",
+  "version": "0.1.0",
+  "description": "APM project for confluence",
+  "author": {
+    "name": "Zak Hargreaves"
+  },
+  "license": "MIT"
+}

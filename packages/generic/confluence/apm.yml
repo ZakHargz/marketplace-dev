@@ -1,0 +1,17 @@
+name: confluence
+version: 0.1.0
+description: Use confluence-cli to read, search, create, update, move, delete, and convert Confluence pages and attachments from the terminal.
+author: Zak Hargreaves
+# Which agent platforms to deploy to (uncomment to pin):
+targets:
+  - copilot
+  - claude
+  - opencode
+
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+devDependencies:
+  apm: []
+scripts: {}
