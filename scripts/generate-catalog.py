@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the static catalogue consumed by the GitHub Pages UI."""
+"""Generate the embedded catalog used by the Flutter-Global Pages UI."""
 
 import json
 import os
@@ -7,81 +7,69 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 OUTPUT = ROOT / "site" / "catalog.json"
+REPOSITORY = "https://github.com/Flutter-Global/apex-marketplace"
 
 
-def yaml_value(path: Path, key: str) -> str | None:
-    pattern = re.compile(rf"^{re.escape(key)}:\s*(.*)$")
-    for line in path.read_text(encoding="utf-8").splitlines():
-        match = pattern.match(line.strip())
-        if match:
-            value = match.group(1).strip().strip("'\"")
-            return value or None
-    return None
+def yaml_value(path: Path, key: str, default: str = "") -> str:
+    if not path.is_file():
+        return default
+    match = re.search(rf"^{re.escape(key)}:\s*(.*)$", path.read_text(encoding="utf-8"), re.MULTILINE)
+    return match.group(1).strip().strip("'\"") if match else default
 
 
-def list_files(directory: Path, suffix: str) -> list[str]:
-    if not directory.is_dir():
-        return []
-    return sorted(str(path.relative_to(directory)) for path in directory.rglob(f"*{suffix}") if path.is_file())
+def readme_description(path: Path, fallback: str) -> str:
+    readme = path / "README.md"
+    if not readme.is_file():
+        return fallback
+    lines = readme.read_text(encoding="utf-8").splitlines()
+    paragraph: list[str] = []
+    for line in lines:
+        text = line.strip()
+        if not text or text.startswith("#") or text.startswith("```"):
+            if paragraph:
+                break
+            continue
+        paragraph.append(text)
+    return " ".join(paragraph) or fallback
 
 
-def package_details(entry: dict) -> dict:
+def package_item(entry: dict) -> dict:
     source = entry.get("source", "")
-    package_path = (ROOT / source).resolve() if source.startswith(".") else None
-    relative = Path(source).as_posix().removeprefix("./")
+    package_path = (ROOT / source).resolve()
+    manifest = package_path / "apm.yml"
+    relative = package_path.relative_to(ROOT).as_posix()
     parts = Path(relative).parts
-    owner = parts[2] if len(parts) >= 3 and parts[:2] == ("packages", "teams") else "generic"
-    classification = "internal" if parts[:2] == ("packages", "teams") else "approved"
-
-    skills: list[str] = []
-    agents: list[str] = []
-    if package_path and package_path.is_dir():
-        for skill_root in (package_path / "skills", package_path / ".apm" / "skills"):
-            for file in skill_root.glob("*/SKILL.md") if skill_root.is_dir() else []:
-                name = file.parent.name
-                if name not in skills:
-                    skills.append(name)
-        for agent_root in (package_path / "agents", package_path / ".apm" / "agents"):
-            for file in list(agent_root.rglob("*.agent.md")) if agent_root.is_dir() else []:
-                name = file.stem.removesuffix(".agent")
-                if name not in agents:
-                    agents.append(name)
-
+    bucket = parts[1] if len(parts) > 1 else "generic"
+    team = parts[2] if bucket in {"teams", "valuestreams"} and len(parts) > 2 else None
+    package_type = yaml_value(manifest, "type", "skill" if (package_path / "skills").exists() else "hybrid")
+    category = {"hybrid": "agents", "skill": "skills", "instructions": "instructions", "prompts": "prompts"}.get(package_type, "unknown")
+    version = yaml_value(manifest, "version", entry.get("version", "1.0.0")).lstrip("^")
+    author = yaml_value(manifest, "author", "Flutter-Global")
+    license_name = yaml_value(manifest, "license", "MIT")
+    description = entry.get("description", yaml_value(manifest, "description"))
+    install = f"apm install {REPOSITORY}/packages/{'/'.join(parts[2:])}"
     return {
-        "name": entry["name"],
-        "displayName": entry["name"].replace("-", " ").title(),
-        "description": entry.get("description", ""),
-        "version": entry.get("version", ""),
-        "owner": owner,
-        "classification": classification,
-        "install": f"apm install {entry['name']}@marketplace-dev",
-        "source": source,
-        "skills": sorted(skills),
-        "agents": sorted(agents),
-        "packageVersion": yaml_value(package_path / "apm.yml", "version") if package_path else None,
+        "id": entry["name"], "name": entry["name"], "type": package_type,
+        "category": category, "version": version, "description": description,
+        "extendedDescription": readme_description(package_path, description),
+        "author": author, "license": license_name, "homepage": None,
+        "repository": REPOSITORY, "installCommand": install, "team": team,
     }
 
 
 def main() -> None:
     marketplace = json.loads(MARKETPLACE.read_text(encoding="utf-8"))
-    packages = [package_details(entry) for entry in marketplace.get("plugins", [])]
-    owners = sorted({package["owner"] for package in packages})
-    source_date_epoch = os.environ.get("SOURCE_DATE_EPOCH")
-    generated_at = (
-        datetime.fromtimestamp(int(source_date_epoch), timezone.utc).isoformat()
-        if source_date_epoch and source_date_epoch.isdigit()
-        else None
-    )
+    items = sorted((package_item(entry) for entry in marketplace.get("plugins", [])), key=lambda item: (item["category"], item["name"]))
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    updated = datetime.fromtimestamp(int(epoch), timezone.utc).isoformat() if epoch and epoch.isdigit() else None
     catalog = {
-        "schemaVersion": 1,
-        "marketplace": marketplace.get("name", "apex-agent-marketplace"),
-        "generatedAt": generated_at,
-        "owners": owners,
-        "packages": packages,
+        "version": "1.0.0", "lastUpdated": updated, "repository": REPOSITORY,
+        "itemCount": len(items), "teams": sorted({item["team"] for item in items if item["team"]}),
+        "categories": {category: sum(item["category"] == category for item in items) for category in ("agents", "skills", "instructions", "prompts")},
+        "items": items,
     }
     OUTPUT.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
 

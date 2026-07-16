@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apm.yml"
+      - "packages/**"
+      - "scripts/**"
+      - "site/**"
+      - ".claude-plugin/marketplace.json"
+      - ".github/workflows/publish.yml"
     tags:
       - "v*"
   workflow_dispatch:

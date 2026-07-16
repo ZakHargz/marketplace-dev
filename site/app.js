@@ -1,35 +1,14 @@
-const state = { packages: [], owner: "generic", query: "" };
-
-const ownerFilter = document.querySelector("#owner-filter");
-const search = document.querySelector("#search");
-const packageGrid = document.querySelector("#packages");
-const empty = document.querySelector("#empty");
-
-function render() {
-  const filtered = state.packages.filter((pkg) => {
-    const text = `${pkg.name} ${pkg.description} ${pkg.owner} ${pkg.skills.join(" ")} ${pkg.agents.join(" ")}`.toLowerCase();
-    return pkg.owner === state.owner && text.includes(state.query.toLowerCase());
-  });
-  document.querySelector("#result-heading").textContent = `${state.owner[0].toUpperCase()}${state.owner.slice(1)} packages`;
-  document.querySelector("#result-count").textContent = `${filtered.length} package${filtered.length === 1 ? "" : "s"}`;
-  packageGrid.innerHTML = filtered.map((pkg) => {
-    const inventory = [...pkg.agents.map((item) => `agent: ${item}`), ...pkg.skills.map((item) => `skill: ${item}`)];
-    return `<article class="package"><div class="package-top"><h3>${escapeHtml(pkg.displayName)}</h3><span class="badge ${pkg.classification === "internal" ? "internal" : ""}">${pkg.classification}</span></div><p>${escapeHtml(pkg.description)}</p><div class="inventory">${inventory.map((item) => `<span class="pill">${escapeHtml(item)}</span>`).join("")}</div><a class="install" href="https://microsoft.github.io/apm/consumer/install-packages/" title="Open APM install documentation">$ ${escapeHtml(pkg.install)}</a></article>`;
-  }).join("");
-  empty.hidden = filtered.length !== 0;
+const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const icon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7h11V5zm0 16H8V7h11v14z"/></svg>';
+let items = [];
+function card(item) {
+  const project = item.installCommand, global = project.replace("apm install ", "apm install -g ");
+  const team = item.team ? `<span class="badge badge-team">${esc(item.team)}</span>` : "";
+  const row = (label, command) => `<div class="install-row"><label>${label}</label><code>${esc(command)}</code><button class="copy-btn" data-copy="${esc(command)}" aria-label="Copy ${label} install command">${icon}</button></div>`;
+  return `<article class="card" data-category="${esc(item.category)}" data-team="${esc(item.team || "")}" data-search="${esc([item.name,item.description,item.author,item.team].filter(Boolean).join(" ").toLowerCase())}"><header class="card-header"><h3>${esc(item.name)}</h3><span class="badge badge-${esc(item.category)}">${esc(item.category)}</span>${team}</header><p class="card-description">${esc(item.description)}</p><dl class="card-meta"><div><dt>Version</dt><dd>${esc(item.version)}</dd></div><div><dt>Author</dt><dd>${esc(item.author)}</dd></div><div><dt>License</dt><dd>${esc(item.license)}</dd></div></dl><div class="install-block">${row("Project", project)}${row("Global", global)}</div></article>`;
 }
-
-function escapeHtml(value) { return String(value).replace(/[&<>"']/g, (char) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[char])); }
-
-fetch("catalog.json").then((response) => response.json()).then((catalog) => {
-  state.packages = catalog.packages;
-  ownerFilter.innerHTML = catalog.owners.map((owner) => `<option value="${escapeHtml(owner)}">${escapeHtml(owner[0].toUpperCase() + owner.slice(1))}</option>`).join("");
-  ownerFilter.value = state.owner;
-  document.querySelector("#updated").textContent = catalog.generatedAt
-    ? `Updated ${new Date(catalog.generatedAt).toLocaleDateString()}`
-    : "Latest marketplace metadata";
-  render();
-}).catch(() => { document.querySelector("#updated").textContent = "Catalogue unavailable"; });
-
-ownerFilter.addEventListener("change", (event) => { state.owner = event.target.value; render(); });
-search.addEventListener("input", (event) => { state.query = event.target.value; render(); });
+function filter() { const q = search.value.trim().toLowerCase(), cat = category.value, team = teamFilter.value; let shown = 0; document.querySelectorAll(".card").forEach((el) => { const visible = (!q || el.dataset.search.includes(q)) && (!cat || el.dataset.category === cat) && (!team || el.dataset.team === team); el.classList.toggle("hidden", !visible); if (visible) shown++; }); count.textContent = `${shown} package${shown === 1 ? "" : "s"}`; empty.classList.toggle("visible", shown === 0); }
+const search = document.querySelector("#search"), category = document.querySelector("#filter-category"), teamFilter = document.querySelector("#filter-team"), count = document.querySelector("#result-count"), empty = document.querySelector("#empty");
+fetch("catalog.json").then((response) => response.json()).then((catalog) => { items = catalog.items; ["packages","agents","skills","instructions","teams"].forEach((key) => { document.querySelector(`#stat-${key}`).textContent = key === "packages" ? catalog.itemCount : key === "teams" ? catalog.teams.length : catalog.categories[key]; }); teamFilter.innerHTML += catalog.teams.map((team) => `<option value="${esc(team)}">${esc(team)}</option>`).join(""); document.querySelector("#last-updated").textContent = catalog.lastUpdated || "latest"; document.querySelector("#grid").innerHTML = items.map(card).join(""); filter(); }).catch(() => { empty.textContent = "Catalog unavailable."; empty.classList.add("visible"); });
+[search, category, teamFilter].forEach((element) => element.addEventListener("input", filter));
+document.querySelector("#grid").addEventListener("click", (event) => { const button = event.target.closest(".copy-btn"); if (!button) return; navigator.clipboard?.writeText(button.dataset.copy).then(() => { button.classList.add("copied"); setTimeout(() => button.classList.remove("copied"), 1200); }); });
