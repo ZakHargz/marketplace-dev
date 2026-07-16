@@ -28,7 +28,12 @@ jobs:
         run: python -m pip install apm-cli
 
       - name: Validate package and marketplace manifests
-        run: apm marketplace check --offline
+        run: |
+          python scripts/prune-marketplace.py
+          apm marketplace check --offline
+
+      - name: Require marketplace manifest cleanup
+        run: git diff --exit-code -- apm.yml
 
       - name: Check generated marketplace output
         run: apm pack --check-clean --dry-run

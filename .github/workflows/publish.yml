@@ -35,6 +35,7 @@ jobs:
 
       - name: Validate and build marketplace
         run: |
+          python scripts/prune-marketplace.py
           apm marketplace check
           # Regenerate first so removed packages disappear from both the
           # marketplace artifact and the Pages catalogue.
@@ -42,6 +43,20 @@ jobs:
           apm pack --check-versions --check-clean --dry-run
           export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct -- .claude-plugin/marketplace.json)"
           python scripts/generate-catalog.py
+
+      - name: Commit generated marketplace changes
+        if: github.ref == 'refs/heads/main'
+        run: |
+          if git diff --quiet -- apm.yml .claude-plugin/marketplace.json site/catalog.json; then
+            echo "Generated marketplace files are already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apm.yml .claude-plugin/marketplace.json site/catalog.json
+          git commit -m "chore(marketplace): regenerate catalogue"
+          git push origin HEAD:main
 
       - name: Upload marketplace release assets
         if: startsWith(github.ref, 'refs/tags/')
