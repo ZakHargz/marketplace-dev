@@ -6,6 +6,15 @@
   },
   "plugins": [
     {
+      "name": "gpd-release-readiness-godmode",
+      "description": "APM project for gpd-release-readiness-godmode",
+      "version": "^0.1.0",
+      "tags": [
+        "gpd"
+      ],
+      "source": "./packages/teams/gpd/gpd-release-readiness-godmode"
+    },
+    {
       "name": "pr-validation-test",
       "description": "Test skill used to verify marketplace pull request validation.",
       "version": "^0.1.0",

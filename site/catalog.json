@@ -2,13 +2,14 @@
   "version": "1.0.0",
   "lastUpdated": null,
   "repository": "https://github.com/Flutter-Global/apex-marketplace",
-  "itemCount": 3,
+  "itemCount": 4,
   "teams": [
-    "apex"
+    "apex",
+    "gpd"
   ],
   "categories": {
     "agents": 0,
-    "skills": 3,
+    "skills": 4,
     "instructions": 0,
     "prompts": 0
   },
@@ -27,6 +28,21 @@
       "repository": "https://github.com/Flutter-Global/apex-marketplace",
       "installCommand": "apm install confluence@apex",
       "team": null
+    },
+    {
+      "id": "gpd-release-readiness-godmode",
+      "name": "gpd-release-readiness-godmode",
+      "type": "skill",
+      "category": "skills",
+      "version": "0.1.0",
+      "description": "APM project for gpd-release-readiness-godmode",
+      "extendedDescription": "APM project for gpd-release-readiness-godmode",
+      "author": "Zak Hargreaves",
+      "license": "MIT",
+      "homepage": null,
+      "repository": "https://github.com/Flutter-Global/apex-marketplace",
+      "installCommand": "apm install gpd-release-readiness-godmode@apex",
+      "team": "gpd"
     },
     {
       "id": "pr-validation-test",

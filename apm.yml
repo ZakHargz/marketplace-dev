@@ -28,6 +28,13 @@ marketplace:
   #   apm pack --marketplace=claude,codex --json | jq -r '.marketplace.outputs[].path'
 
   packages:
+    - name: gpd-release-readiness-godmode
+      description: APM project for gpd-release-readiness-godmode
+      source: ./packages/teams/gpd/gpd-release-readiness-godmode
+      version: "^0.1.0"
+      tags:
+        - gpd
+
     - name: pr-validation-test
       description: Test skill used to verify marketplace pull request validation.
       source: ./packages/teams/apex/pr-validation-test
