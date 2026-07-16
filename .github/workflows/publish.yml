@@ -35,6 +35,7 @@ jobs:
 
       - name: Validate and build marketplace
         run: |
+          python scripts/sync-marketplace.py
           python scripts/prune-marketplace.py
           apm marketplace check
           # Regenerate first so removed packages disappear from both the
