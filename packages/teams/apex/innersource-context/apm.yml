@@ -1,0 +1,17 @@
+name: innersource-context
+version: 0.1.0
+description: Skills for understanding Flutter-Global's InnerSource governance — how repositories are provisioned via org-config and how GitHub App credentials are located and exposed to workflows.
+author: APEX
+# Which agent platforms to deploy to (uncomment to pin):
+targets:
+  - copilot
+  - claude
+  - opencode
+
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+devDependencies:
+  apm: []
+scripts: {}

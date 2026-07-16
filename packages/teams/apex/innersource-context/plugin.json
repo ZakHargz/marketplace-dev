@@ -1,0 +1,9 @@
+{
+  "name": "innersource-context",
+  "version": "0.1.0",
+  "description": "APM project for innersource-context",
+  "author": {
+    "name": "Zak Hargreaves"
+  },
+  "license": "MIT"
+}

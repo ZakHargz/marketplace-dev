@@ -1,0 +1,15 @@
+{
+  "name": "marketplace-dev",
+  "owner": {
+    "name": "zakhargz",
+    "url": "https://github.com/zakhargz"
+  },
+  "plugins": [
+    {
+      "name": "onboard-to-olympus",
+      "description": "Agent + Skill to onboard-to-olympus",
+      "version": "^1.0.0",
+      "source": "./packages/teams/apex/onboard-to-olympus"
+    }
+  ]
+}
