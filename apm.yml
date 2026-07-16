@@ -28,6 +28,13 @@ marketplace:
   #   apm pack --marketplace=claude,codex --json | jq -r '.marketplace.outputs[].path'
 
   packages:
+    - name: review-pr-lite
+      description: Use when the user wants to apply GitHub PR review comments from Copilot — implements valid recommendations and replies to every comment.
+      source: ./packages/teams/apex/review-pr-lite
+      version: "^0.1.0"
+      tags:
+        - apex
+
     - name: confluence
       description: APEX-approved generic Confluence integration
       source: ./packages/generic/confluence

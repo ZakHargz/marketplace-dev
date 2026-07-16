@@ -1,11 +1,27 @@
 {
   "schemaVersion": 1,
   "marketplace": "apex-agent-marketplace",
-  "generatedAt": "2026-07-16T19:08:09+00:00",
+  "generatedAt": "2026-07-16T19:10:28+00:00",
   "owners": [
+    "apex",
     "generic"
   ],
   "packages": [
+    {
+      "name": "review-pr-lite",
+      "displayName": "Review Pr Lite",
+      "description": "Use when the user wants to apply GitHub PR review comments from Copilot \u2014 implements valid recommendations and replies to every comment.",
+      "version": "^0.1.0",
+      "owner": "apex",
+      "classification": "internal",
+      "install": "apm install review-pr-lite@marketplace-dev",
+      "source": "./packages/teams/apex/review-pr-lite",
+      "skills": [
+        "review-pr-lite"
+      ],
+      "agents": [],
+      "packageVersion": "0.1.0"
+    },
     {
       "name": "confluence",
       "displayName": "Confluence",

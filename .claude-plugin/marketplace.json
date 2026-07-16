@@ -6,6 +6,15 @@
   },
   "plugins": [
     {
+      "name": "review-pr-lite",
+      "description": "Use when the user wants to apply GitHub PR review comments from Copilot — implements valid recommendations and replies to every comment.",
+      "version": "^0.1.0",
+      "tags": [
+        "apex"
+      ],
+      "source": "./packages/teams/apex/review-pr-lite"
+    },
+    {
       "name": "confluence",
       "description": "APEX-approved generic Confluence integration",
       "version": "^1.0.0",
