@@ -1,0 +1,17 @@
+name: jira
+version: 0.1.0
+description: Interact with Jira
+author: Zak Hargreaves
+# Which agent platforms to deploy to (uncomment to pin):
+targets:
+  - copilot
+  - claude
+  - opencode
+
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+devDependencies:
+  apm: []
+scripts: {}
