@@ -2,14 +2,14 @@
   "version": "1.0.0",
   "lastUpdated": null,
   "repository": "https://github.com/Flutter-Global/apex-marketplace",
-  "itemCount": 4,
+  "itemCount": 5,
   "teams": [
     "apex",
     "gpd"
   ],
   "categories": {
     "agents": 0,
-    "skills": 4,
+    "skills": 5,
     "instructions": 0,
     "prompts": 0
   },
@@ -43,6 +43,21 @@
       "repository": "https://github.com/Flutter-Global/apex-marketplace",
       "installCommand": "apm install gpd-release-readiness-godmode@apex",
       "team": "gpd"
+    },
+    {
+      "id": "jira",
+      "name": "jira",
+      "type": "skill",
+      "category": "skills",
+      "version": "0.1.0",
+      "description": "Interact with Jira",
+      "extendedDescription": "Interact with Jira",
+      "author": "Zak Hargreaves",
+      "license": "MIT",
+      "homepage": null,
+      "repository": "https://github.com/Flutter-Global/apex-marketplace",
+      "installCommand": "apm install jira@apex",
+      "team": null
     },
     {
       "id": "pr-validation-test",

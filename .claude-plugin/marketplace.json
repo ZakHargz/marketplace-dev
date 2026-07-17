@@ -6,6 +6,15 @@
   },
   "plugins": [
     {
+      "name": "jira",
+      "description": "Interact with Jira",
+      "version": "^0.1.0",
+      "tags": [
+        "generic"
+      ],
+      "source": "./packages/generic/jira"
+    },
+    {
       "name": "gpd-release-readiness-godmode",
       "description": "APM project for gpd-release-readiness-godmode",
       "version": "^0.1.0",
